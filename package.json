@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "astro": "^4.15.0",
-    "@astrojs/netlify": "^5.5.0",
     "@sanity/client": "^6.22.0"
   },
   "devDependencies": {
