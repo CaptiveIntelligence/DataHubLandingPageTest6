@@ -32,7 +32,7 @@ const { badge, headline, gradientWord, subtext, primaryCtaLabel, secondaryCtaLab
         <a href="#platform" class="btn btn--ghost btn--lg">{secondaryCtaLabel}</a>
       </div>
       <div class="hero__stats">
-        {stats.map((stat, i) => (
+        {(stats || []).map((stat, i) => (
           <>
             <div class="hero__stat">
               <span class="hero__stat-number">{stat.number}</span>
