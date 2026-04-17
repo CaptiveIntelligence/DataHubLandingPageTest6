@@ -1,0 +1,72 @@
+---
+export interface CoverageStat {
+  number: string;
+  label: string;
+  description: string;
+}
+
+export interface Domicile {
+  name: string;
+  isActive: boolean;
+}
+
+export interface Props {
+  badge: string;
+  heading: string;
+  subtext: string;
+  stats: CoverageStat[];
+  detailHeading: string;
+  detailBody: string;
+  coverageList: string[];
+  domiciles: Domicile[];
+  ctaLabel: string;
+}
+
+const { badge, heading, subtext, stats, detailHeading, detailBody, coverageList, domiciles, ctaLabel } = Astro.props;
+---
+
+<section class="section section--dark" id="data">
+  <div class="container">
+    <div class="section__header section__header--light">
+      <div class="section__badge section__badge--light">{badge}</div>
+      <h2>{heading}</h2>
+      <p>{subtext}</p>
+    </div>
+    <div class="coverage-grid">
+      {stats.map((stat) => (
+        <div class="coverage-card">
+          <div class="coverage-card__number">{stat.number}</div>
+          <div class="coverage-card__label">{stat.label}</div>
+          <div class="coverage-card__desc">{stat.description}</div>
+        </div>
+      ))}
+    </div>
+    <div class="coverage-detail">
+      <div class="coverage-detail__text">
+        <h3>{detailHeading}</h3>
+        <p>{detailBody}</p>
+        <ul class="coverage-list">
+          {coverageList.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <button class="btn btn--primary" id="dataCoverageCtaBtn">{ctaLabel}</button>
+      </div>
+      <div class="coverage-detail__visual">
+        <div class="domicile-map">
+          {domiciles.map((domicile) => (
+            <div class={`domicile-pill${domicile.isActive ? ' domicile-pill--active' : ''}`}>
+              {domicile.name}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.getElementById('dataCoverageCtaBtn')?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('openDemoModal'));
+  });
+</script>

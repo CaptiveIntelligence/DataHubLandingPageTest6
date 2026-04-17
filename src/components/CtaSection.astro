@@ -1,0 +1,34 @@
+---
+export interface Props {
+  heading: string;
+  subtext: string;
+  primaryCtaLabel: string;
+  secondaryCtaLabel: string;
+  secondaryCtaHref: string;
+}
+
+const { heading, subtext, primaryCtaLabel, secondaryCtaLabel, secondaryCtaHref } = Astro.props;
+---
+
+<section class="cta-section">
+  <div class="cta-section__bg"></div>
+  <div class="container">
+    <div class="cta-section__content">
+      <div class="cta-section__logo">
+        <img src="/images/CI DataHub Logo - 1 Line.png" alt="CI Data Hub" />
+      </div>
+      <h2>{heading}</h2>
+      <p>{subtext}</p>
+      <div class="cta-section__actions">
+        <button class="btn btn--white btn--lg" id="ctaDemoBtn">{primaryCtaLabel}</button>
+        <a href={secondaryCtaHref} class="btn btn--ghost-white btn--lg">{secondaryCtaLabel}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.getElementById('ctaDemoBtn')?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('openDemoModal'));
+  });
+</script>

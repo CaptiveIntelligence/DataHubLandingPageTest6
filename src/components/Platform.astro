@@ -1,0 +1,58 @@
+---
+export interface PlatformFeature {
+  title: string;
+  description: string;
+  iconType: string;
+  colorScheme: string;
+  isLarge: boolean;
+  linkLabel: string;
+  linkHref: string;
+}
+
+export interface Props {
+  badge: string;
+  heading: string;
+  subtext: string;
+  features: PlatformFeature[];
+}
+
+const { badge, heading, subtext, features } = Astro.props;
+---
+
+<section class="section section--light" id="platform">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__badge">{badge}</div>
+      <h2>{heading}</h2>
+      <p>{subtext}</p>
+    </div>
+    <div class="features-grid">
+      {features.map((feature) => (
+        <div class={`feature-card${feature.isLarge ? ' feature-card--large' : ''}`}>
+          <div class={`feature-card__icon icon--${feature.colorScheme}`}>
+            {feature.iconType === 'table' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3zM3 9h18M9 21V9"/></svg>
+            )}
+            {feature.iconType === 'clock' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            )}
+            {feature.iconType === 'waveform' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            )}
+            {feature.iconType === 'document' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            )}
+            {feature.iconType === 'monitor' && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            )}
+          </div>
+          <h3>{feature.title}</h3>
+          <p>{feature.description}</p>
+          {feature.linkLabel && (
+            <a href={feature.linkHref || '#'} class="feature-link">{feature.linkLabel} →</a>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

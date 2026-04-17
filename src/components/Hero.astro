@@ -1,0 +1,90 @@
+---
+export interface HeroStat {
+  number: string;
+  label: string;
+}
+
+export interface Props {
+  badge: string;
+  headline: string;
+  gradientWord: string;
+  subtext: string;
+  primaryCtaLabel: string;
+  secondaryCtaLabel: string;
+  stats: HeroStat[];
+}
+
+const { badge, headline, gradientWord, subtext, primaryCtaLabel, secondaryCtaLabel, stats } = Astro.props;
+---
+
+<section class="hero">
+  <div class="hero__bg"></div>
+  <div class="container">
+    <div class="hero__content">
+      <div class="hero__badge">{badge}</div>
+      <h1 class="hero__headline">
+        {headline}<br />
+        <span class="gradient-text">{gradientWord}</span>
+      </h1>
+      <p class="hero__sub">{subtext}</p>
+      <div class="hero__actions">
+        <button class="btn btn--primary btn--lg" id="heroDemoBtn">{primaryCtaLabel}</button>
+        <a href="#platform" class="btn btn--ghost btn--lg">{secondaryCtaLabel}</a>
+      </div>
+      <div class="hero__stats">
+        {stats.map((stat, i) => (
+          <>
+            <div class="hero__stat">
+              <span class="hero__stat-number">{stat.number}</span>
+              <span class="hero__stat-label">{stat.label}</span>
+            </div>
+            {i < stats.length - 1 && <div class="hero__stat-divider"></div>}
+          </>
+        ))}
+      </div>
+    </div>
+    <div class="hero__visual">
+      <div class="dashboard-mock">
+        <div class="dashboard-mock__header">
+          <div class="dashboard-mock__dot red"></div>
+          <div class="dashboard-mock__dot amber"></div>
+          <div class="dashboard-mock__dot green"></div>
+          <span>CI Data Hub — Portfolio Overview</span>
+        </div>
+        <div class="dashboard-mock__body">
+          <div class="mock-chart">
+            <div class="mock-chart__bars">
+              <div class="mock-bar" style="--h: 60%"><span>Q1</span></div>
+              <div class="mock-bar mock-bar--accent" style="--h: 80%"><span>Q2</span></div>
+              <div class="mock-bar" style="--h: 55%"><span>Q3</span></div>
+              <div class="mock-bar mock-bar--accent" style="--h: 90%"><span>Q4</span></div>
+              <div class="mock-bar" style="--h: 70%"><span>Q1</span></div>
+              <div class="mock-bar mock-bar--accent" style="--h: 85%"><span>Q2</span></div>
+            </div>
+            <p class="mock-chart__label">Captive Premium Volume by Quarter</p>
+          </div>
+          <div class="mock-metrics">
+            <div class="mock-metric">
+              <span class="mock-metric__val">94.2%</span>
+              <span class="mock-metric__lbl">Loss Ratio Avg</span>
+            </div>
+            <div class="mock-metric mock-metric--highlight">
+              <span class="mock-metric__val">+12.4%</span>
+              <span class="mock-metric__lbl">YoY Growth</span>
+            </div>
+            <div class="mock-metric">
+              <span class="mock-metric__val">$4.2B</span>
+              <span class="mock-metric__lbl">Assets Under Mgmt</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.getElementById('heroDemoBtn')?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('openDemoModal'));
+  });
+</script>

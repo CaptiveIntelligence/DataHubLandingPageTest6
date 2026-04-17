@@ -1,0 +1,19 @@
+---
+export interface Props {
+  label: string;
+  logos: string[];
+}
+
+const { label, logos } = Astro.props;
+---
+
+<section class="logos-bar">
+  <div class="container">
+    <p class="logos-bar__label">{label}</p>
+    <div class="logos-bar__track">
+      {logos.map((name) => (
+        <div class="logos-bar__item">{name}</div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,55 @@
+---
+export interface AboutValue {
+  iconType: string;
+  title: string;
+  body: string;
+}
+
+export interface Props {
+  badge: string;
+  heading: string;
+  paragraphs: string[];
+  values: AboutValue[];
+}
+
+const { badge, heading, paragraphs, values } = Astro.props;
+---
+
+<section class="section section--light" id="about">
+  <div class="container">
+    <div class="about-split">
+      <div class="about-text">
+        <div class="section__badge">{badge}</div>
+        <h2>{heading}</h2>
+        {paragraphs.map((para) => (
+          <p>{para}</p>
+        ))}
+        <div class="about-partners">
+          <img src="/images/GCP Vertical with EY.png" alt="Partners" class="about-partner-logo" />
+        </div>
+      </div>
+      <div class="about-values">
+        {values.map((value) => (
+          <div class="value-card">
+            <div class="value-card__icon">
+              {value.iconType === 'check-circle' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              )}
+              {value.iconType === 'lightning' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              )}
+              {value.iconType === 'shield' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              )}
+              {value.iconType === 'users' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/><circle cx="9" cy="7" r="4"/></svg>
+              )}
+            </div>
+            <h4>{value.title}</h4>
+            <p>{value.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,88 @@
+---
+export interface UseCase {
+  id: string;
+  label: string;
+  heading: string;
+  body: string;
+  bullets: string[];
+  ctaLabel: string;
+}
+
+export interface Props {
+  badge: string;
+  heading: string;
+  subtext: string;
+  tabs: UseCase[];
+}
+
+const { badge, heading, subtext, tabs } = Astro.props;
+---
+
+<section class="section section--light" id="insights">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__badge">{badge}</div>
+      <h2>{heading}</h2>
+      <p>{subtext}</p>
+    </div>
+    <div class="use-cases">
+      <div class="use-case-tabs">
+        {tabs.map((tab, i) => (
+          <button
+            class={`use-case-tab${i === 0 ? ' active' : ''}`}
+            data-target={tab.id}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      {tabs.map((tab, i) => (
+        <div class={`use-case-content${i !== 0 ? ' hidden' : ''}`} id={tab.id}>
+          <div class="use-case-body">
+            <div class="use-case-text">
+              <h3>{tab.heading}</h3>
+              <p>{tab.body}</p>
+              <ul>
+                {tab.bullets.map((bullet) => (
+                  <li>{bullet}</li>
+                ))}
+              </ul>
+              <button class="btn btn--primary use-case-demo-btn">{tab.ctaLabel}</button>
+            </div>
+            <div class={`use-case-image use-case-image--${tab.id.replace('tab-', '')}`}></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Tab switching
+  const tabBtns = document.querySelectorAll('.use-case-tab');
+  const tabPanels = document.querySelectorAll('.use-case-content');
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const target = (btn as HTMLElement).dataset.target;
+
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      tabPanels.forEach(panel => {
+        if (panel.id === target) {
+          panel.classList.remove('hidden');
+        } else {
+          panel.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // CTA buttons
+  document.querySelectorAll('.use-case-demo-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('openDemoModal'));
+    });
+  });
+</script>
